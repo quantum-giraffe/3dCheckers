@@ -33,7 +33,7 @@ def Commands_processing():
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                print('q')
+#                print('q')
                 StartScreen.Menu(v.window, v.width, [v.KEY_CONTINUE, v.KEY_RESTART, v.KEY_EXIT]).menu()
         if not Commands_processing.step_started:
             if pygame.mouse.get_pressed()[0]:
