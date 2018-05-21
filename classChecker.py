@@ -81,34 +81,33 @@ class Checker:
         if self.is_king:
             cuts=self.king_cut_steps()
             if len(cuts)>0:
-                return cuts
+                return [cuts, False]
             else:
                 if not all_cut_steps():
-                    return self.king_steps()
+                    return [self.king_steps(), True]
                 else:
-                    return []
+                    return [[], True]
         else:
             cuts=self.cut_steps()
             if len(cuts)>0:
 #                print(cuts)
-                return cuts
+                return [cuts, False]
             else:
                 if not all_cut_steps():
-                    return self.single_steps()
+                    return [self.single_steps(), True]
                 else:
-                    return []
+                    return [[], True]
 
     def step(self, x_new, y_new):
 #        v.current_player
-        global count_checkers
         valid=self.valid_steps()
         if self.z==-1:
-            if not valid.count((x_new, y_new)):
+            if not valid[0].count((x_new, y_new)):
                 pass
 #                return -1
             else:
-                if abs(x_new - self.x)==1:
-#                    print('здесь')
+                if valid[1]:
+                    print('здесь')
                     v.current_player *= -1
                     print(v.current_player)
                     v.field_checkers[x_new][y_new].append(Checker(self.color, x_new, y_new))
@@ -119,12 +118,12 @@ class Checker:
                             v.field_checkers[int(self.x + i * copysign(1, x_new - self.x))][
                                 int(self.y + i * copysign(1, y_new - self.y))].pop()
                             v.field_checkers[x_new][y_new].append(Checker(self.color, x_new, y_new, self.is_king))
-
+                            print('тут')
                             if y_new == 3.5 - self.color * 3.5:
                                 v.field_checkers[x_new][y_new][0].is_king = True
 
                             if not v.field_checkers[x_new][y_new][0].cut_steps():
-#                                print('тут')
+
                                 v.current_player *= -1
                             else:
                                 v.field_checkers[int(self.x)][int(self.y)].pop()

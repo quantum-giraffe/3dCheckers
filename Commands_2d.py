@@ -1,6 +1,8 @@
 import pygame
 import sys
 import Values as v
+import StartScreen
+
 global current_player
 
 def Commands_processing():
@@ -15,7 +17,7 @@ def Commands_processing():
         if Commands_processing.valids:
             pass
     except:
-        Commands_processing.valids = []
+        Commands_processing.valids = [[], False]
 
     try:
         pos=Commands_processing.pos
@@ -24,11 +26,15 @@ def Commands_processing():
         Commands_processing.pos=(0,0)
         Commands_processing.pos1=(0,0)
 
-    print(Commands_processing.step_started)
+##    print(Commands_processing.step_started)
     for event in pygame.event.get():
-#        if event.type == pygame.QUIT:
-#            done = False
-#            sys.exit()
+        if event.type == pygame.QUIT:
+            v.done = False
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                print('q')
+                StartScreen.Menu(v.window, v.width, [v.KEY_CONTINUE, v.KEY_RESTART, v.KEY_EXIT]).menu()
         if not Commands_processing.step_started:
             if pygame.mouse.get_pressed()[0]:
 #                print(1)
@@ -53,9 +59,8 @@ def Commands_processing():
 #            print(3)
             flag=False
             for event in pygame.event.get():
-                if event.type == pygame.K_ESCAPE:
-                    Commands_processing.step_started = False
-                    break
+
+
                 if pygame.mouse.get_pressed()[0]:
                     pos1 = (pygame.mouse.get_pos()[0] // (v.width // 8), pygame.mouse.get_pos()[1] // (v.width // 8))
                     Commands_processing.pos1 = pos1
@@ -64,14 +69,14 @@ def Commands_processing():
     #                print(pos1)
                     if pos1 == pos:
                         Commands_processing.step_started = False
-                        Commands_processing.valids = []
+                        Commands_processing.valids[0] = []
                         break
-                    if Commands_processing.valids.count(pos1):
+                    if Commands_processing.valids[0].count(pos1):
 
                         if v.field_checkers[pos[0]][pos[1]][0].step(pos1[0], pos1[1]):
                             Commands_processing.pos=pos1
                             pos = Commands_processing.pos
-                            Commands_processing.valids = v.field_checkers[pos[0]][pos[1]][0].cut_steps()
+                            Commands_processing.valids[0] = v.field_checkers[pos[0]][pos[1]][0].cut_steps()
 #                            print(v.count_checkers)
 #                            print(Commands_processing.step_started)
                             flag=True
@@ -79,10 +84,19 @@ def Commands_processing():
 #                        print('c', v.current_player)
                         else:
                             Commands_processing.step_started = False
-                            Commands_processing.valids = []
+                            Commands_processing.valids[0] = []
 
             if flag:
                 break
         break
 
-    return Commands_processing.valids
+    return Commands_processing.valids[0]
+
+def win():
+    pygame.draw.rect(v.window, (50, 100, 50), ((0, 0), (v.width, int(v.width // 2))))
+    pygame.draw.rect(v.window, (150, 100, 150), ((0, int(v.width // 2)), (v.width, int(v.width//2))))
+    pygame.draw.rect(v.window, (250, 200, 00), ((0, int(v.width * 3 // 7)), (v.width, v.width * 2 // 7)))
+    if v.count_checkers[0]==0:
+        pass
+    else:
+        pass

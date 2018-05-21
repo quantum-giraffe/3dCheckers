@@ -2,6 +2,7 @@ import pygame
 import Values as v
 from classChecker import *
 from Commands_2d import *
+from bot import *
 
 
 def fill_checker(screen, width, x:int, y:int, color, is_king):
@@ -26,14 +27,26 @@ def fill_cell_red(x:int, y:int):
     pygame.draw.circle(v.window, ((250, 0, 0)), (int((x+0.5)*v.width//8), int((y+0.5)*v.width//8)), int(v.width//16), 3)
 
 
-def graph():
-
+def graph(is_single:bool):
+    print('c')
+    v.field_checkers, v.current_player, v.count_checkers = v.init()
+#    print(v.field_checkers)
     screen = pygame.Surface((v.width, v.width))
     square = pygame.Surface((v.width//8, v.width//8))
 
 
     while v.done:
-        valids = Commands_processing()
+        if v.count_checkers[0]==0 or v.count_checkers[1]==0:
+            win()
+            break
+##        print(v.count_checkers[0], v.count_checkers[1])
+
+        valids=[]
+
+        if is_single and v.current_player == -1:
+            bot_step()
+        else:
+            valids = Commands_processing()
 
         graph_field_2d(v.window, screen, square)
         graph_checkers()
