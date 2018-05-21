@@ -59,8 +59,18 @@ def Commands_processing():
 #            print(3)
             flag=False
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    v.done = False
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        print('q')
+                        Commands_processing.valids[0] = []
+                        Commands_processing.step_started=False
+                        flag=True
+                        StartScreen.Menu(v.window, v.width, [v.KEY_CONTINUE, v.KEY_RESTART, v.KEY_EXIT]).menu()
 
-
+                        break
                 if pygame.mouse.get_pressed()[0]:
                     pos1 = (pygame.mouse.get_pos()[0] // (v.width // 8), pygame.mouse.get_pos()[1] // (v.width // 8))
                     Commands_processing.pos1 = pos1
