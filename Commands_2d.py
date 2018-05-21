@@ -92,11 +92,17 @@ def Commands_processing():
 
     return Commands_processing.valids[0]
 
-def win():
-    pygame.draw.rect(v.window, (50, 100, 50), ((0, 0), (v.width, int(v.width // 2))))
-    pygame.draw.rect(v.window, (150, 100, 150), ((0, int(v.width // 2)), (v.width, int(v.width//2))))
-    pygame.draw.rect(v.window, (250, 200, 00), ((0, int(v.width * 3 // 7)), (v.width, v.width * 2 // 7)))
+def win(window):
+    pygame.draw.rect(window, (50, 100, 50), ((0, 0), (v.width, int(v.width // 2))))
+    pygame.draw.rect(window, (150, 100, 150), ((0, int(v.width // 2)), (v.width, int(v.width // 2))))
+    pygame.draw.rect(window, (250, 200, 00), ((0, int(v.width * 3 // 7)), (v.width, v.width * 1 // 7)))
     if v.count_checkers[0]==0:
-        pass
+        font_pos_win = (int(v.width // 6), int(v.width * 4 // 6))
+        font_pos_def = (int(v.width  // 6), int(v.width // 6))
     else:
-        pass
+        font_pos_win = (int(v.width // 6), int(v.width // 6))
+        font_pos_def = (int(v.width // 6), int(v.width * 4 // 6))
+    Text = pygame.font.Font(None, 60).render('   ПОБЕДА', True, (250, 250, 250))
+    window.blit(Text, font_pos_win)
+    Text = pygame.font.Font(None, 60).render('ПОРАЖЕНИЕ', True, (250, 250, 250))
+    window.blit(Text, font_pos_def)

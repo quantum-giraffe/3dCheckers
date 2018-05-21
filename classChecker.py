@@ -144,6 +144,10 @@ def all_cut_steps():
         for cell in string:
             if cell:
                 if cell[0].color == v.current_player:
-                    if len(cell[0].cut_steps())>0:
-                        return True
+                    if cell[0].is_king:
+                        if len(cell[0].king_cut_steps()) > 0:
+                            return True
+                    else:
+                        if len(cell[0].cut_steps())>0:
+                            return True
     return False

@@ -58,7 +58,7 @@ class Key:
 
 
 class Menu:
-    def __init__(self, screen, widht, points:list):
+    def __init__(self, screen, widht, points:list, background = v.background_image):
 
         self.widht=widht
         self.lenght=widht//2
@@ -66,6 +66,7 @@ class Menu:
         self.points=points
         self.screen=screen
         self.keys=self.keys()
+        self.bc = background
 
     def keys(self):
         n=len(self.points)
@@ -93,7 +94,7 @@ class Menu:
         print('asa')
         pygame.init()
         clock = pygame.time.Clock()
-        background_image = pygame.image.load('check1.jpg')
+
         done = True
         while done:
             for event in pygame.event.get():
@@ -103,7 +104,7 @@ class Menu:
 
                 pygame.display.update()
                 clock.tick(60)
-                self.screen.blit(background_image, (0, 0))
+                self.screen.blit(self.bc, (0, 0))
                 for key in self.keys:
                     key.cursor()
                     press = key.is_pressed_f(self.screen)

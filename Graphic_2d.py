@@ -37,7 +37,9 @@ def graph(is_single:bool):
 
     while v.done:
         if v.count_checkers[0]==0 or v.count_checkers[1]==0:
-            win()
+            win_screen = pygame.Surface((v.width, v.width))
+            win(win_screen)
+            StartScreen.Menu(v.window, v.width, [v.KEY_RESTART], background = win_screen).menu()
             break
 ##        print(v.count_checkers[0], v.count_checkers[1])
 

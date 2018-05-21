@@ -13,11 +13,10 @@ def bot_step():
     current_checker = []
     while len(val[0])==0:
         current = int(random.random()*v.count_checkers[0])
-        if current > 0:
-            print(checkers,current)
-            current_checker = v.field_checkers[checkers[current][0]][checkers[current][1]]
-            print(current_checker)
-            val = current_checker[0].valid_steps()
+        print(checkers,current)
+        current_checker = v.field_checkers[checkers[current][0]][checkers[current][1]]
+        print(current_checker)
+        val = current_checker[0].valid_steps()
     to = int(random.random()*len(val[0]))
     print(to)
     print(val)
