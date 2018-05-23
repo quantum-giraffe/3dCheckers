@@ -79,19 +79,23 @@ class Menu:
 
     def key_processing(self, text):
         if text == v.KEY_PLAY or text == v.KEY_RESTART:
-            print('b')
+#            print('b')
             Menu(self.screen, self.widht, [v.KEY_SINGLE, v.KEY_DOUBLE]).menu()
         elif text == v.KEY_CONTINUE:
             pass
         elif text == v.KEY_EXIT:
             v.done = False
         elif text == v.KEY_SINGLE:
-            gr.graph(True)
+            Menu(self.screen, self.widht, [v.KEY_SIMPLE, v.KEY_DIFFICULT]).menu()
         elif text == v.KEY_DOUBLE:
-            gr.graph(False)
+            gr.graph(0)
+        elif text == v.KEY_SIMPLE:
+            gr.graph(1)
+        elif text == v.KEY_DIFFICULT:
+            gr.graph(2)
 
     def menu(self):
-        print('asa')
+#        print('asa')
         pygame.init()
         clock = pygame.time.Clock()
 
@@ -110,7 +114,7 @@ class Menu:
                     press = key.is_pressed_f(self.screen)
                     key.draw(self.screen)
                     if press:
-                        print('a')
+#                        print('a')
                         self.key_processing(key.text)
                         done=False
                         break
